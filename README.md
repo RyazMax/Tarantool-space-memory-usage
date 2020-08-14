@@ -3,9 +3,11 @@
 ## Данные
 
 1. Cхема: 20 полей числа/строки. Tarantool - integer primary key.
-MySQL/PostgreSQL - BIGINT, VARCHAR
+MySQL/PostgreSQL - BIGINT, VARCHAR (папка `schema`)
 
 ## Проверить занимаемое место
+
+Результаты измерения - `graph.csv`
 
 ### 1. MySQL: 
 Cборка докера
@@ -59,7 +61,7 @@ $ docker run --name test-tarantool --rm -it\
          tarantool/tarantool tarantool /opt/tarantool/tarantool.lua
 ```
 
-# Графики в зависимости от размера таблицы
+# График зависимости от размера таблицы
 
 ![](compare-size.png)
 
