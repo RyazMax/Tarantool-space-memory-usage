@@ -10,6 +10,31 @@ DEFAULT_STRING_LEN = 150
 DEFAULT_MAX_NUMBER = 2 ** 32 - 1
 DEFAULT_JSON_LEVEL_WIDTH = 3
 
+JSON_STRING = """
+{
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
+            }
+        }
+    }
+}
+"""
+
 parser = argparse.ArgumentParser(description='Generates csv with data for testing DBMS space usage')
 
 parser.add_argument('--rows', type=int, dest='rows', default=DEFAULT_ROWS, help='Rows of data')
@@ -23,18 +48,13 @@ def random_row(i, columns):
     res = [i]
     for i in range(columns - 1):
         if i % 2 == 1:
-            res.append(''.join(random.choices(string.ascii_uppercase + string.digits, k=DEFAULT_STRING_LEN)))
+            # To create int and string data.csv
+            # res.append(''.join(random.choices(string.ascii_uppercase + string.digits, k=DEFAULT_STRING_LEN)))
+            
+            # To create int and json data.csv
+            res.append(JSON_STRING)
         else:
             res.append(random.randint(0, DEFAULT_MAX_NUMBER))
-    return res
-
-def random_json(lvl):
-    if lvl == 0:
-        return random.randint(0, DEFAULT_MAX_NUMBER)
-
-    res = {}
-    for i in range(DEFAULT_JSON_LEVEL_WIDTH):
-        res['a' + i] = random_json(lvl - 1)
     return res
 
 with open(args.output, 'w') as output:

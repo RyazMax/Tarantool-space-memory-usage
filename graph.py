@@ -7,7 +7,7 @@ mysql = []
 psql = []
 tarantool = []
 
-with open('graph.csv', 'r') as file:
+with open('graph-json.csv', 'r') as file:
     reader = csv.reader(file)
     next(reader, None)
     for row in reader:
